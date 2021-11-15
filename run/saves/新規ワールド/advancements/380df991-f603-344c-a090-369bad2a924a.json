@@ -1,13 +1,7 @@
 {
-  "minecraft:recipes/transportation/acacia_boat": {
+  "minecraft:recipes/misc/black_dye": {
     "criteria": {
-      "in_water": "2021-11-14 08:40:27 +0900"
-    },
-    "done": true
-  },
-  "minecraft:recipes/transportation/oak_boat": {
-    "criteria": {
-      "in_water": "2021-11-14 08:40:27 +0900"
+      "has_ink_sac": "2021-11-15 14:37:11 +0900"
     },
     "done": true
   },
@@ -29,9 +23,45 @@
     },
     "done": true
   },
+  "minecraft:husbandry/fishy_business": {
+    "criteria": {
+      "cod": "2021-11-15 14:45:25 +0900"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/acacia_boat": {
+    "criteria": {
+      "in_water": "2021-11-14 08:40:27 +0900"
+    },
+    "done": true
+  },
+  "minecraft:recipes/transportation/oak_boat": {
+    "criteria": {
+      "in_water": "2021-11-14 08:40:27 +0900"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_cod_from_campfire_cooking": {
+    "criteria": {
+      "has_cod": "2021-11-15 14:45:25 +0900"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_cod_from_smoking": {
+    "criteria": {
+      "has_cod": "2021-11-15 14:45:25 +0900"
+    },
+    "done": true
+  },
   "minecraft:recipes/transportation/jungle_boat": {
     "criteria": {
       "in_water": "2021-11-14 08:40:27 +0900"
+    },
+    "done": true
+  },
+  "minecraft:recipes/food/cooked_cod": {
+    "criteria": {
+      "has_cod": "2021-11-15 14:45:25 +0900"
     },
     "done": true
   },
@@ -45,6 +75,7 @@
     "criteria": {
       "minecraft:forest": "2021-11-14 08:39:33 +0900",
       "minecraft:desert": "2021-11-14 11:51:38 +0900",
+      "minecraft:beach": "2021-11-15 08:54:27 +0900",
       "minecraft:river": "2021-11-15 04:01:12 +0900",
       "minecraft:plains": "2021-11-14 08:40:05 +0900"
     },

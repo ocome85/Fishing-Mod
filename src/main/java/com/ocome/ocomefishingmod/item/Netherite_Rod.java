@@ -26,11 +26,12 @@ import java.util.List;
 //public static final Item FISHING_ROD = registerItem("fishing_rod", new FishingRodItem((new Item.Properties()).durability(64).tab(CreativeModeTab.TAB_TOOLS)));
 
 public class Netherite_Rod extends FishingRodItem {
-    public Netherite_Rod() {
-        super(new Properties().tab(OcomeFishingMod.MOD_TAB).durability(256).fireResistant()
-                );
-        this.setRegistryName("netherite_rod");
-    }
+    public Netherite_Rod(){
+
+            super(new Properties().tab(OcomeFishingMod.MOD_TAB).durability(256).fireResistant() );
+            this.setRegistryName("netherite_rod");
+        }
+
 
     @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flags){
@@ -38,40 +39,35 @@ public class Netherite_Rod extends FishingRodItem {
     }
 
     @Override
-    @Nonnull
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack currentstack = player.getItemInHand(hand);
-        int lurespeed;
-        //if player is fishing
-        if (player.fishing != null) {
-            if (!level.isClientSide) {
-                lurespeed = player.fishing.retrieve(currentstack);
-                currentstack.hurtAndBreak(lurespeed, player, (p) -> {
-                    p.broadcastBreakEvent(hand);
+    public InteractionResultHolder<ItemStack> use(Level p_41290_, Player p_41291_, InteractionHand p_41292_) {
+        ItemStack itemstack = p_41291_.getItemInHand(p_41292_);
+        if (p_41291_.fishing != null) {
+            if (!p_41290_.isClientSide) {
+                int i = p_41291_.fishing.retrieve(itemstack);
+                itemstack.hurtAndBreak(i, p_41291_, (p_41288_) -> {
+                    p_41288_.broadcastBreakEvent(p_41292_);
                 });
             }
 
-            level.playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
-            level.gameEvent(player, GameEvent.FISHING_ROD_REEL_IN, player);
-        }
-        else //if player is not fishing
-        {
-
-            if (!level.isClientSide)
-            {
-
-                lurespeed = EnchantmentHelper.getFishingSpeedBonus(currentstack);
-                int luck = EnchantmentHelper.getFishingLuckBonus(currentstack);
-                level.addFreshEntity(new CustomFishingHook(player, level, luck, lurespeed));
-                //level.playSound((Player)null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENDERMAN_TELEPORT, SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+            p_41290_.playSound((Player)null, p_41291_.getX(), p_41291_.getY(), p_41291_.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1.0F, 0.4F / (p_41290_.getRandom().nextFloat() * 0.4F + 0.8F));
+            p_41290_.gameEvent(p_41291_, GameEvent.FISHING_ROD_REEL_IN, p_41291_);
+        } else {
+            p_41290_.playSound((Player)null, p_41291_.getX(), p_41291_.getY(), p_41291_.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (p_41290_.getRandom().nextFloat() * 0.4F + 0.8F));
+            if (!p_41290_.isClientSide) {
+                int k = EnchantmentHelper.getFishingSpeedBonus(itemstack);
+                int j = EnchantmentHelper.getFishingLuckBonus(itemstack);
+                p_41290_.addFreshEntity(new CustomFishingHook(p_41291_, p_41290_, j, k));
             }
 
-            player.awardStat(Stats.ITEM_USED.get(this));
-            level.gameEvent(player, GameEvent.FISHING_ROD_CAST, player);
+            p_41291_.awardStat(Stats.ITEM_USED.get(this));
+            p_41290_.gameEvent(p_41291_, GameEvent.FISHING_ROD_CAST, p_41291_);
         }
 
-        return InteractionResultHolder.sidedSuccess(currentstack, level.isClientSide());
+        return InteractionResultHolder.sidedSuccess(itemstack, p_41290_.isClientSide());
     }
 
+    public int getEnchantmentValue() {
+        return 1;
+    }
 
 }

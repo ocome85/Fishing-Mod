@@ -14,7 +14,7 @@ import net.minecraftforge.registries.ObjectHolder;
 @Mod.EventBusSubscriber(modid= OcomeFishingMod.MOD_ID,bus =Mod.EventBusSubscriber.Bus.MOD)
 
 public class ModItems {
-   //public static final Item TUTORIAL_T = new Item((new Item.Properties()).tab(OcomeFishingMod.MOD_TAB));
+   public static final Item NETHERITE_ROD = new Netherite_Rod();
 
     @SubscribeEvent
     public static void  registerItem(RegistryEvent.Register<Item> event){

@@ -78,8 +78,6 @@ public class CustomFishingHook extends FishingHook  {
         this.lureSpeed = Math.max(0, p_37109_);
     }
 
-
-
     private void catchingFish(BlockPos p_37146_) {
         ServerLevel serverlevel = (ServerLevel)this.level;
         int i = 1;
@@ -188,6 +186,7 @@ public class CustomFishingHook extends FishingHook  {
         }
     }
 
+
     private boolean calculateOpenWater(BlockPos p_37159_) {
         CustomFishingHook.OpenWaterType fishinghook$openwatertype = CustomFishingHook.OpenWaterType.INVALID;
 
@@ -213,10 +212,14 @@ public class CustomFishingHook extends FishingHook  {
         return true;
     }
 
-    @Override
+
+
     public void tick() {
+        //ここが問題
+
         this.syncronizedRandom.setSeed(this.getUUID().getLeastSignificantBits() ^ this.level.getGameTime());
         super.tick();
+
         Player player = this.getPlayerOwner();
         if (player == null) {
             this.discard();
@@ -310,8 +313,10 @@ public class CustomFishingHook extends FishingHook  {
             this.setDeltaMovement(this.getDeltaMovement().scale(0.92D));
             this.reapplyPosition();
         }
+
+
     }
-    @Override
+
     public int retrieve(ItemStack p_37157_) {
         Player player = this.getPlayerOwner();
         if (!this.level.isClientSide && player != null && !this.shouldStopFishing(player)) {

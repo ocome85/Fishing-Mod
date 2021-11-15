@@ -27,7 +27,7 @@ public class OcomeFishingMod
     public static final String MOD_ID = "ocomefishingmod";
 
     public OcomeFishingMod() {
-        
+
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         // Register the setup method for modloading
         eventBus.addListener(this::setup);
