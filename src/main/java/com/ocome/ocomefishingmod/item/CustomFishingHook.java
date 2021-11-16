@@ -1,5 +1,7 @@
 package com.ocome.ocomefishingmod.item;
 
+import com.ocome.ocomefishingmod.main.ModEntities;
+import com.ocome.ocomefishingmod.main.ModItems;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
@@ -53,7 +55,7 @@ import java.util.Random;
 
 
 
-public class CustomFishingHook extends FishingHook  {
+public class CustomFishingHook extends FishingHook{
     private final Random syncronizedRandom = new Random();
     private boolean biting;
     private int outOfWaterTime;
@@ -71,14 +73,43 @@ public class CustomFishingHook extends FishingHook  {
     private CustomFishingHook.FishHookState currentState = CustomFishingHook.FishHookState.FLYING;
     private final int luck;
     private final int lureSpeed;
-    public CustomFishingHook(Player p_37106_, Level p_37107_, int p_37108_, int p_37109_) {
-        super(p_37106_, p_37107_, p_37108_, p_37109_);
+
+    public CustomFishingHook(EntityType<? extends CustomFishingHook> p_150138_, Level p_150139_, int p_150143_, int p_150144_) {
+        super(p_150138_, p_150139_);
         this.noCulling = true;
-        this.luck = Math.max(0, p_37108_);
-        this.lureSpeed = Math.max(0, p_37109_);
+        this.luck = Math.max(0, p_150143_);
+        this.lureSpeed = Math.max(0, p_150144_);
     }
 
-    private void catchingFish(BlockPos p_37146_) {
+    public CustomFishingHook(Player p_37106_, Level p_37107_, int p_37108_, int p_37109_) {
+        this(ModEntities.MODFISHING_BOBBER, p_37107_, p_37108_, p_37109_);
+        this.setOwner(p_37106_);
+        float f = p_37106_.getXRot();
+        float f1 = p_37106_.getYRot();
+        float f2 = Mth.cos(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
+        float f3 = Mth.sin(-f1 * ((float)Math.PI / 180F) - (float)Math.PI);
+        float f4 = -Mth.cos(-f * ((float)Math.PI / 180F));
+        float f5 = Mth.sin(-f * ((float)Math.PI / 180F));
+        double d0 = p_37106_.getX() - (double)f3 * 0.3D;
+        double d1 = p_37106_.getEyeY();
+        double d2 = p_37106_.getZ() - (double)f2 * 0.3D;
+        this.moveTo(d0, d1, d2, f1, f);
+        Vec3 vec3 = new Vec3((double)(-f3), (double)Mth.clamp(-(f5 / f4), -5.0F, 5.0F), (double)(-f2));
+        double d3 = vec3.length();
+        vec3 = vec3.multiply(0.6D / d3 + 0.5D + this.random.nextGaussian() * 0.0045D, 0.6D / d3 + 0.5D + this.random.nextGaussian() * 0.0045D, 0.6D / d3 + 0.5D + this.random.nextGaussian() * 0.0045D);
+        this.setDeltaMovement(vec3);
+        this.setYRot((float)(Mth.atan2(vec3.x, vec3.z) * (double)(180F / (float)Math.PI)));
+        this.setXRot((float)(Mth.atan2(vec3.y, vec3.horizontalDistance()) * (double)(180F / (float)Math.PI)));
+        this.yRotO = this.getYRot();
+        this.xRotO = this.getXRot();
+    }
+
+    public CustomFishingHook(EntityType<CustomFishingHook> customFishingHookEntityType, Level level) {
+        this(customFishingHookEntityType,level, 0, 0);
+    }
+
+
+    private void catchingFish(BlockPos p_37146_)    {
         ServerLevel serverlevel = (ServerLevel)this.level;
         int i = 1;
         BlockPos blockpos = p_37146_.above();

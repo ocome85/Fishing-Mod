@@ -38,8 +38,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/*
+public class CCustomFishingHook extends FishingHook  {
 
-public class CustomFishingHookl extends FishingHook  {
     private final Random syncronizedRandom = new Random();
     private boolean biting;
     private int outOfWaterTime;
@@ -54,10 +55,10 @@ public class CustomFishingHookl extends FishingHook  {
     private boolean openWater = true;
     @Nullable
     private Entity hookedIn;
-    private CustomFishingHookl.FishHookState currentState = CustomFishingHookl.FishHookState.FLYING;
+    private CCustomFishingHook.FishHookState currentState = CCustomFishingHook.FishHookState.FLYING;
     private final int luck;
     private final int lureSpeed;
-    public CustomFishingHookl(Player p_37106_, Level p_37107_, int p_37108_, int p_37109_) {
+    public CCustomFishingHook(Player p_37106_, Level p_37107_, int p_37108_, int p_37109_) {
         super(p_37106_, p_37107_, p_37108_, p_37109_);
         this.noCulling = true;
         this.luck = Math.max(0, p_37108_);
@@ -156,38 +157,38 @@ public class CustomFishingHookl extends FishingHook  {
         this.getEntityData().set(DATA_HOOKED_ENTITY, p_150158_ == null ? 0 : p_150158_.getId() + 1);
     }
 
-    private CustomFishingHookl.OpenWaterType getOpenWaterTypeForArea(BlockPos p_37148_, BlockPos p_37149_) {
+    private CCustomFishingHook.OpenWaterType getOpenWaterTypeForArea(BlockPos p_37148_, BlockPos p_37149_) {
         return BlockPos.betweenClosedStream(p_37148_, p_37149_).map(this::getOpenWaterTypeForBlock).reduce((p_37139_, p_37140_) -> {
-            return p_37139_ == p_37140_ ? p_37139_ : CustomFishingHookl.OpenWaterType.INVALID;
-        }).orElse(CustomFishingHookl.OpenWaterType.INVALID);
+            return p_37139_ == p_37140_ ? p_37139_ : CCustomFishingHook.OpenWaterType.INVALID;
+        }).orElse(CCustomFishingHook.OpenWaterType.INVALID);
     }
 
-    private CustomFishingHookl.OpenWaterType getOpenWaterTypeForBlock(BlockPos p_37164_) {
+    private CCustomFishingHook.OpenWaterType getOpenWaterTypeForBlock(BlockPos p_37164_) {
         BlockState blockstate = this.level.getBlockState(p_37164_);
         if (!blockstate.isAir() && !blockstate.is(Blocks.LILY_PAD)) {
             FluidState fluidstate = blockstate.getFluidState();
-            return fluidstate.is(FluidTags.WATER) && fluidstate.isSource() && blockstate.getCollisionShape(this.level, p_37164_).isEmpty() ? CustomFishingHookl.OpenWaterType.INSIDE_WATER : CustomFishingHookl.OpenWaterType.INVALID;
+            return fluidstate.is(FluidTags.WATER) && fluidstate.isSource() && blockstate.getCollisionShape(this.level, p_37164_).isEmpty() ? CCustomFishingHook.OpenWaterType.INSIDE_WATER : CCustomFishingHook.OpenWaterType.INVALID;
         } else {
-            return CustomFishingHookl.OpenWaterType.ABOVE_WATER;
+            return CCustomFishingHook.OpenWaterType.ABOVE_WATER;
         }
     }
 
 
     private boolean calculateOpenWater(BlockPos p_37159_) {
-        CustomFishingHookl.OpenWaterType fishinghook$openwatertype = CustomFishingHookl.OpenWaterType.INVALID;
+        CCustomFishingHook.OpenWaterType fishinghook$openwatertype = CCustomFishingHook.OpenWaterType.INVALID;
 
         for(int i = -1; i <= 2; ++i) {
-            CustomFishingHookl.OpenWaterType fishinghook$openwatertype1 = this.getOpenWaterTypeForArea(p_37159_.offset(-2, i, -2), p_37159_.offset(2, i, 2));
+            CCustomFishingHook.OpenWaterType fishinghook$openwatertype1 = this.getOpenWaterTypeForArea(p_37159_.offset(-2, i, -2), p_37159_.offset(2, i, 2));
             switch(fishinghook$openwatertype1) {
                 case INVALID:
                     return false;
                 case ABOVE_WATER:
-                    if (fishinghook$openwatertype == CustomFishingHookl.OpenWaterType.INVALID) {
+                    if (fishinghook$openwatertype == CCustomFishingHook.OpenWaterType.INVALID) {
                         return false;
                     }
                     break;
                 case INSIDE_WATER:
-                    if (fishinghook$openwatertype == CustomFishingHookl.OpenWaterType.ABOVE_WATER) {
+                    if (fishinghook$openwatertype == CCustomFishingHook.OpenWaterType.ABOVE_WATER) {
                         return false;
                     }
             }
@@ -228,35 +229,35 @@ public class CustomFishingHookl extends FishingHook  {
             }
 
             boolean flag = f > 0.0F;
-            if (this.currentState == CustomFishingHookl.FishHookState.FLYING) {
+            if (this.currentState == CCustomFishingHook.FishHookState.FLYING) {
                 if (this.hookedIn != null) {
                     this.setDeltaMovement(Vec3.ZERO);
-                    this.currentState = CustomFishingHookl.FishHookState.HOOKED_IN_ENTITY;
+                    this.currentState = CCustomFishingHook.FishHookState.HOOKED_IN_ENTITY;
                     return;
                 }
 
                 if (flag) {
                     this.setDeltaMovement(this.getDeltaMovement().multiply(0.3D, 0.2D, 0.3D));
-                    this.currentState = CustomFishingHookl.FishHookState.BOBBING;
+                    this.currentState = CCustomFishingHook.FishHookState.BOBBING;
                     return;
                 }
 
                 this.checkCollision();
             } else {
-                if (this.currentState == CustomFishingHookl.FishHookState.HOOKED_IN_ENTITY) {
+                if (this.currentState == CCustomFishingHook.FishHookState.HOOKED_IN_ENTITY) {
                     if (this.hookedIn != null) {
                         if (!this.hookedIn.isRemoved() && this.hookedIn.level.dimension() == this.level.dimension()) {
                             this.setPos(this.hookedIn.getX(), this.hookedIn.getY(0.8D), this.hookedIn.getZ());
                         } else {
                             this.setHookedEntity((Entity)null);
-                            this.currentState = CustomFishingHookl.FishHookState.FLYING;
+                            this.currentState = CCustomFishingHook.FishHookState.FLYING;
                         }
                     }
 
                     return;
                 }
 
-                if (this.currentState == CustomFishingHookl.FishHookState.BOBBING) {
+                if (this.currentState == CCustomFishingHook.FishHookState.BOBBING) {
                     Vec3 vec3 = this.getDeltaMovement();
                     double d0 = this.getY() + vec3.y - (double)blockpos.getY() - (double)f;
                     if (Math.abs(d0) < 0.01D) {
@@ -291,7 +292,7 @@ public class CustomFishingHookl extends FishingHook  {
 
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.updateRotation();
-            if (this.currentState == CustomFishingHookl.FishHookState.FLYING && (this.onGround || this.horizontalCollision)) {
+            if (this.currentState == CCustomFishingHook.FishHookState.FLYING && (this.onGround || this.horizontalCollision)) {
                 this.setDeltaMovement(Vec3.ZERO);
             }
 
@@ -379,3 +380,4 @@ public class CustomFishingHookl extends FishingHook  {
         INVALID;
     }
 }
+*/
