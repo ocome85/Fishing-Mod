@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import com.ocome.ocomefishingmod.item.Netherite_Rod;
 import com.ocome.ocomefishingmod.main.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -52,7 +53,7 @@ public class ModFishingHookRenderer extends FishingHookRenderer {
             p_114708_.popPose();
             int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
             ItemStack itemstack = player.getMainHandItem();
-            if (!itemstack.is(ModItems.NETHERITE_ROD)) {
+            if (!(itemstack.getItem() instanceof Netherite_Rod)) {
                 i = -i;
             }
 
