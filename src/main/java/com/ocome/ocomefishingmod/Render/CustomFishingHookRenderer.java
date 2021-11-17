@@ -6,11 +6,13 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Matrix3f;
 import com.mojang.math.Matrix4f;
 import com.mojang.math.Vector3f;
+import com.ocome.ocomefishingmod.item.CustomFishingHook;
 import com.ocome.ocomefishingmod.item.Netherite_Rod;
 import com.ocome.ocomefishingmod.main.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.FishingHookRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -26,15 +28,16 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class ModFishingHookRenderer extends FishingHookRenderer {
+public class CustomFishingHookRenderer extends EntityRenderer<CustomFishingHook> {
     private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation("textures/entity/fishing_hook.png");
     private static final RenderType RENDER_TYPE = RenderType.entityCutout(TEXTURE_LOCATION);
-    public ModFishingHookRenderer(EntityRendererProvider.Context p_174117_) {
+    private static final double VIEW_BOBBING_SCALE = 960.0D;
+
+    public CustomFishingHookRenderer(EntityRendererProvider.Context p_174117_) {
         super(p_174117_);
     }
 
-    @Override
-    public void render(FishingHook p_114705_, float p_114706_, float p_114707_, PoseStack p_114708_, MultiBufferSource p_114709_, int p_114710_) {
+    public void render(CustomFishingHook p_114705_, float p_114706_, float p_114707_, PoseStack p_114708_, MultiBufferSource p_114709_, int p_114710_) {
         Player player = p_114705_.getPlayerOwner();
         if (player != null) {
             p_114708_.pushPose();
@@ -53,6 +56,7 @@ public class ModFishingHookRenderer extends FishingHookRenderer {
             p_114708_.popPose();
             int i = player.getMainArm() == HumanoidArm.RIGHT ? 1 : -1;
             ItemStack itemstack = player.getMainHandItem();
+            //if (!itemstack.is(Items.FISHING_ROD)) {
             if (!(itemstack.getItem() instanceof Netherite_Rod)) {
                 i = -i;
             }
@@ -108,11 +112,9 @@ public class ModFishingHookRenderer extends FishingHookRenderer {
         return (float)p_114691_ / (float)p_114692_;
     }
 
-
     private static void vertex(VertexConsumer p_114712_, Matrix4f p_114713_, Matrix3f p_114714_, int p_114715_, float p_114716_, int p_114717_, int p_114718_, int p_114719_) {
         p_114712_.vertex(p_114713_, p_114716_ - 0.5F, (float)p_114717_ - 0.5F, 0.0F).color(255, 255, 255, 255).uv((float)p_114718_, (float)p_114719_).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(p_114715_).normal(p_114714_, 0.0F, 1.0F, 0.0F).endVertex();
     }
-
 
     private static void stringVertex(float p_174119_, float p_174120_, float p_174121_, VertexConsumer p_174122_, PoseStack.Pose p_174123_, float p_174124_, float p_174125_) {
         float f = p_174119_ * p_174124_;
@@ -128,4 +130,8 @@ public class ModFishingHookRenderer extends FishingHookRenderer {
         p_174122_.vertex(p_174123_.pose(), f, f1, f2).color(0, 0, 0, 255).normal(p_174123_.normal(), f3, f4, f5).endVertex();
     }
 
+    public ResourceLocation getTextureLocation(CustomFishingHook p_114703_) {
+        return TEXTURE_LOCATION;
+    }
 }
+

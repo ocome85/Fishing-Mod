@@ -1,11 +1,6 @@
 package com.ocome.ocomefishingmod.main;
 
-import com.ocome.ocomefishingmod.Render.ModFishingHookRenderer;
-import com.ocome.ocomefishingmod.item.CustomFishingHook;
-import net.minecraft.client.model.EndermanModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.resources.ResourceLocation;
+import com.ocome.ocomefishingmod.Render.CustomFishingHookRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,7 +20,7 @@ public class ClientHandler {
     //registry list
     @SubscribeEvent
     public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntities.MODFISHING_BOBBER, ModFishingHookRenderer::new);
+        event.registerEntityRenderer(ModEntities.MODFISHING_BOBBER, CustomFishingHookRenderer::new);
 
     }
     //renderer list

@@ -34,6 +34,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -244,14 +245,11 @@ public class CustomFishingHook extends FishingHook{
     }
 
 
-
-    public void tick() {
-        //ここが問題
-
-        this.syncronizedRandom.setSeed(this.getUUID().getLeastSignificantBits() ^ this.level.getGameTime());
-        super.tick();
-
-        Player player = this.getPlayerOwner();
+@Override
+    public void  tick() {
+    this.syncronizedRandom.setSeed(this.getUUID().getLeastSignificantBits() ^ this.level.getGameTime());
+    super.tick();
+    Player player = this.getPlayerOwner();
         if (player == null) {
             this.discard();
         } else if (this.level.isClientSide || !this.shouldStopFishing(player)) {
@@ -348,6 +346,7 @@ public class CustomFishingHook extends FishingHook{
 
     }
 
+    @Override
     public int retrieve(ItemStack p_37157_) {
         Player player = this.getPlayerOwner();
         if (!this.level.isClientSide && player != null && !this.shouldStopFishing(player)) {

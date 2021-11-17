@@ -8,37 +8,27 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.FishingHook;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.FishingRodItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
-import javax.annotation.Nonnull;
+
 import java.util.List;
-//public static final Item FISHING_ROD = registerItem("fishing_rod", new FishingRodItem((new Item.Properties()).durability(64).tab(CreativeModeTab.TAB_TOOLS)));
 
-public class Netherite_Rod extends FishingRodItem {
+public class Netherite_Rod extends Item implements Vanishable {
     public Netherite_Rod(){
-
             super(new Properties().tab(OcomeFishingMod.MOD_TAB).durability(256).fireResistant() );
             this.setRegistryName("netherite_rod");
         }
 
 
-    @Override
     public void appendHoverText(ItemStack stack, Level worldIn, List<Component> tooltip, TooltipFlag flags){
         tooltip.add(new TranslatableComponent(this.getDescriptionId()+".desc"));
     }
 
-    @Override
+
     public InteractionResultHolder<ItemStack> use(Level p_41290_, Player p_41291_, InteractionHand p_41292_) {
         ItemStack itemstack = p_41291_.getItemInHand(p_41292_);
         if (p_41291_.fishing != null) {
@@ -65,9 +55,7 @@ public class Netherite_Rod extends FishingRodItem {
 
         return InteractionResultHolder.sidedSuccess(itemstack, p_41290_.isClientSide());
     }
-
-    public int getEnchantmentValue() {
+        public int getEnchantmentValue() {
         return 1;
     }
-
 }
