@@ -13,6 +13,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraftforge.common.Tags;
 
 
 import java.util.List;
@@ -58,4 +59,6 @@ public class Netherite_Rod extends Item implements Vanishable {
         public int getEnchantmentValue() {
         return 1;
     }
+
+
 }
