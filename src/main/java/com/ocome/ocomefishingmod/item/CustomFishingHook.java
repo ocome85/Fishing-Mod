@@ -18,10 +18,7 @@ public class CustomFishingHook extends FishingHook  {
     public CustomFishingHook(EntityType<? extends CustomFishingHook> p_150138_, Level p_150139_, int p_150143_, int p_150144_) {
         super(p_150138_, p_150139_);
         this.noCulling = true;
-
-
     }
-
     public CustomFishingHook(Player p_37106_, Level p_37107_, int p_37108_, int p_37109_) {
         this(ModEntities.MODFISHING_BOBBER, p_37107_, p_37108_, p_37109_);
         this.setOwner(p_37106_);
@@ -49,8 +46,7 @@ public class CustomFishingHook extends FishingHook  {
         this(customFishingHookEntityType,level, 0, 0);
     }
 
-
-@Override
+    @Override
     protected  boolean shouldStopFishing(Player p_37137_)  {
         ItemStack itemstack = p_37137_.getMainHandItem();
         ItemStack itemstack1 = p_37137_.getOffhandItem();

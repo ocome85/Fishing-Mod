@@ -29,7 +29,7 @@ public class Netherite_Rod extends Item implements Vanishable {
         tooltip.add(new TranslatableComponent(this.getDescriptionId()+".desc"));
     }
 
-
+@Override
     public InteractionResultHolder<ItemStack> use(Level p_41290_, Player p_41291_, InteractionHand p_41292_) {
         ItemStack itemstack = p_41291_.getItemInHand(p_41292_);
         if (p_41291_.fishing != null) {

@@ -22,7 +22,7 @@ public class ClientHandler {
     //registry list
     @SubscribeEvent
     public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntities.MODFISHING_BOBBER, FishingHookRenderer::new);
+        event.registerEntityRenderer(ModEntities.MODFISHING_BOBBER, CustomFishingHookRenderer::new);
 
     }
     //renderer list
